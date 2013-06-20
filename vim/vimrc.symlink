@@ -1,0 +1,79 @@
+set noswapfile
+syntax on
+filetype plugin indent on
+set nocp
+filetype plugin on
+
+set ruler
+set relativenumber
+set showmatch
+set ignorecase
+set colorcolumn=80
+set tabstop=4
+set shiftwidth=4
+set expandtab
+set nowrap
+set hlsearch
+
+autocmd FileType make setlocal noexpandtab
+" This is specific to rails apps, but I will not bind it to a particular " " filetype 
+"
+function! TwoSpace()
+    setlocal ts=2
+    setlocal sw=2
+endfunction
+au FileType ruby call TwoSpace()
+au FileType coffee call TwoSpace()
+au FileType vim call TwoSpace()
+
+au FileType clojure inoremap ( ()<Left>
+au BufNewFile,BufRead *.erb call TwoSpace()
+
+set list
+set listchars=tab:→\ ,trail:☃
+
+colorscheme desert
+set background=dark
+hi ColorColumn ctermbg=darkgreen guibg=darkgreen
+
+map <leader>r :!rspec --no-color <CR>
+map <leader>br :!bundle exec rspec --no-color <CR>
+map <leader>rr :!rspec % <CR>
+map <leader>n :!nosetests <CR>
+map <leader>p :!python % <CR>
+map <leader>b :!bash <CR>
+map <leader>pf gqap <CR>
+map <leader>ga :!git add % <CR>
+map <leader><leader> gt
+map <leader>m :!touch % && make <CR>
+map <leader>c /]]]]]]]]]]]]]]] <CR>
+map <leader>lat :Align & <CR>
+map <leader>paa :Align => <CR>
+map <leader>rtf :!bundle exec rspec --no-color % <CR>
+
+
+if has("gui_running")
+  set guioptions=egmrt
+endif
+
+set incsearch
+
+execute pathogen#infect()
+nnoremap <leader>h <Esc>:call ToggleHardMode()<CR>
+
+map <up> <nop>
+map <down> <nop>
+map <left> <nop>
+map <right> <nop>
+imap <up> <nop>
+imap <down> <nop>
+imap <left> <nop>
+imap <right> <nop>
+
+command! Q q " Bind :Q to :q
+command! W w " Bind :W to :w
+command! Wq wq " Bind :Wq to :wq
+command! WQ wq " Bind :WQ to :wq
+
+" autocmd VimEnter,BufNewFile,BufReadPost * silent! call HardMode()
+set backspace=indent,eol,start

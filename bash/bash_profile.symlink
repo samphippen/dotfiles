@@ -1,0 +1,90 @@
+alias git=hub
+
+export PATH=$HOME/bin:/usr/local/bin:$PATH
+
+#I fucking love sprunge
+alias sprunge="curl -F 'sprunge=<-' http://sprunge.us"
+
+export HOST=""
+#os specific editor setup
+#and give ls colors
+if [ `uname` == "Darwin" ]
+then
+    alias vim="mvim -p"
+    alias ls="ls -G"
+    export EDITOR='mvim -f'
+    export GIT_EDITOR='mvim -f --nomru -c "au VimLeave * !open -a Terminal"'
+    export PATH=$PATH:/usr/texbin
+else
+    alias vim="vim -p"
+    export EDITOR="vim"
+    alias ls="ls --color"
+fi
+
+tty | grep -i "pts"
+if [ $? == 0 ]
+then
+    export HOST="$(hostname | sed 's/\..*//g') "
+fi
+# Don’t clear the screen after quitting a manual page
+export MANPAGER="less -X"
+
+#can type sqlite, not sqlite3
+alias sqlite=sqlite3
+
+# Larger bash history (allow 32³ entries; default is 500)
+export HISTSIZE=10000000
+export HISTFILESIZE=$HISTSIZE
+
+#git in ps1 hacks
+parse_git_branch() {
+  git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
+}
+
+if which apmcounter > /dev/null
+then
+    export PS1='$HOST$(apmcounter) $(parse_git_branch " [%s]  ")\$ '
+else
+    export PS1='$HOST$(parse_git_branch " [%s]  ")\$ '
+fi
+
+source ~/.git_completion
+
+#sr in path hacks
+export PATH=$PATH:$HOME/.sr/tools/wrapper
+
+#rvm functions
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm" # Load RVM function
+
+#brew bash completion
+if which brew > /dev/null
+then
+    if [ -f `brew --prefix`/etc/bash_completion ]; then
+        . `brew --prefix`/etc/bash_completion
+    fi
+fi
+
+alias serve="python -m SimpleHTTPServer"
+
+export WOLFRAM_APPID="8PUKL9-5W7Y9953W2"
+
+function g {
+ if [[ $# > 0 ]]
+ then
+     git $@
+ else
+     git status
+ fi
+}
+
+function cd()
+{
+    builtin cd "$*" && ls
+}
+
+alias gp='git push'
+alias retag='`brew --prefix`/bin/ctags -R --exclude=.svn --exclude=.git --exclude=log --exclude=tmp *'
+alias review="git push origin HEAD:refs/for/master"
+alias c="clear && ls"
+alias typeless='history | sed "s/.*  //" | sort | uniq -c | sort -g | tail -n 5'
+bind -x '"\C-l": clear; ls'

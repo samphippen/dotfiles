@@ -1,0 +1,39 @@
+# Sample gitconfig
+#
+# You probably want to change the [user] section here since you are not me.
+
+[hub]
+        protocol = https
+[user]
+        name = Sam Phippen
+        email = samphippen@googlemail.com
+[credential]
+        helper = osxkeychain
+[alias]
+        co = checkout
+        a = add
+        cm = commit -s
+        d = diff --cached
+        dic = diff --cached
+        st = !echo "Use 'g' instead"
+        l = log --graph --color
+        commits = !git rev-list HEAD | wc -l
+        undo = reset --soft HEAD^
+[color]
+        diff = auto
+        status = auto
+        branch = auto
+        ui = true
+[core]
+        excludesfile = ~/.gitignore
+        editor = vim
+[apply]
+        whitespace = nowarn
+[mergetool]
+        keepBackup = false
+[difftool]
+        prompt = false
+[help]
+        autocorrect = 1
+[push]
+	default = simple
