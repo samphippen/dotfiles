@@ -1,12 +1,20 @@
-set noswapfile
-syntax on
+set      noswapfile
+syntax   on
 filetype plugin indent on
-set nocp
+set      nocp
 filetype plugin on
+
+let g:ctrlp_prompt_mappings = {
+            \ 'AcceptSelection("e")': ['<c-t>'],
+            \ 'AcceptSelection("t")': ['<cr>', '<2-LeftMouse>'],
+            \ }
+
+execute pathogen#infect()
 
 set ruler
 set relativenumber
 set showmatch
+set showcmd
 set ignorecase
 set colorcolumn=80
 set tabstop=4
@@ -15,13 +23,37 @@ set expandtab
 set nowrap
 set hlsearch
 
+"mother fucking makefiles
 autocmd FileType make setlocal noexpandtab
-" This is specific to rails apps, but I will not bind it to a particular " " filetype 
-"
+
 function! TwoSpace()
     setlocal ts=2
     setlocal sw=2
 endfunction
+
+function! OpenSpec()
+    let repl = substitute(substitute(expand('%'), '\.rb', '', ''), "lib/", "spec/", "")
+    let path = repl . '_spec.rb'
+    exec('tabe ' . path)
+endfunction
+
+function! VsplitSpec()
+    let repl = substitute(substitute(expand('%'), '\.rb', '', ''), "lib/", "spec/", "")
+    let path = repl . '_spec.rb'
+    exec('vsplit ' . path)
+endfunction
+
+function! PromoteToLet()
+    :normal! dd
+    " :exec '?^\s*it\>'
+    :normal! P
+    :.s/\(\w\+\) = \(.*\)$/let(:\1) { \2 }/
+    :normal ==
+    :normal! dd
+endfunction
+
+:command! PromoteToLet :call PromoteToLet()
+
 au FileType ruby call TwoSpace()
 au FileType coffee call TwoSpace()
 au FileType vim call TwoSpace()
@@ -32,46 +64,56 @@ au BufNewFile,BufRead *.erb call TwoSpace()
 set list
 set listchars=tab:→\ ,trail:☃
 
-colorscheme desert
 set background=dark
+colorscheme solarized
 hi ColorColumn ctermbg=darkgreen guibg=darkgreen
 
-map <leader>r :!rspec --no-color <CR>
-map <leader>br :!bundle exec rspec --no-color <CR>
-map <leader>rr :!rspec % <CR>
-map <leader>n :!nosetests <CR>
-map <leader>p :!python % <CR>
-map <leader>b :!bash <CR>
-map <leader>pf gqap <CR>
-map <leader>ga :!git add % <CR>
+map <leader>jra      :!bundle exec rspec --no-color <CR>
+map <leader>jrf      :!bundle exec rspec --no-color % <CR>
+map <leader>jna      :!nosetests <CR>
+map <leader>rpf      :!python % <CR>
+map <leader>rrf      :!ruby %<CR>
+map <leader>rb       :!bash <CR>
+map <leader>rv       :so ~/.vimrc <CR>
+map <leader>rm       :!touch % && make <CR>
+map <leader>lt       *<CR>
+map <leader>li       gg/def.*init<CR>
+map <leader>lcd      gg/class.*<CR>
+map <leader>lrp      /^ *p <CR>
+map <leader>eal      :Align & <CR>
+map <leader>eap      :Align => <CR>
+map <leader>epl      :PromoteToLet<cr>
+map <leader>orf      :call OpenSpec()<CR>
+map <leader>orv      :call VsplitSpec()<CR>
+map <leader>ors      :tabe .rspec<CR>
+map <leader>ovr      :tabe ~/.vimrc<CR>
+map <leader>bi       :!bundle install
 map <leader><leader> gt
-map <leader>m :!touch % && make <CR>
-map <leader>c /]]]]]]]]]]]]]]] <CR>
-map <leader>lat :Align & <CR>
-map <leader>paa :Align => <CR>
-map <leader>rtf :!bundle exec rspec --no-color % <CR>
+map <leader><space>  /]]]]]]]]]]]]]]] <CR>
+
+nnoremap <leader>h <Esc>:call ToggleHardMode()<CR>
 
 
 if has("gui_running")
-  set guioptions=egmrt
+    set guioptions=egmrt
 endif
 
 set incsearch
 
-execute pathogen#infect()
-nnoremap <leader>h <Esc>:call ToggleHardMode()<CR>
 
-map <up> <nop>
-map <down> <nop>
-map <left> <nop>
-map <right> <nop>
-imap <up> <nop>
-imap <down> <nop>
-imap <left> <nop>
+map  <up>    <nop>
+map  <down>  <nop>
+map  <left>  <nop>
+map  <right> <nop>
+map  l       <nop>
+map  h       <nop>
+imap <up>    <nop>
+imap <down>  <nop>
+imap <left>  <nop>
 imap <right> <nop>
 
-command! Q q " Bind :Q to :q
-command! W w " Bind :W to :w
+command! Q  q  " Bind :Q  to :q
+command! W  w  " Bind :W  to :w
 command! Wq wq " Bind :Wq to :wq
 command! WQ wq " Bind :WQ to :wq
 

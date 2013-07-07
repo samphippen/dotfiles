@@ -142,7 +142,9 @@ endfun
 fun! ToggleHardMode()
     if g:HardMode_currentMode == 'hard'
         call EasyMode()
+        set  relativenumber
     else
         call HardMode()
+        set number
     end
 endfun
