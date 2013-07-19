@@ -69,8 +69,12 @@ colorscheme solarized
 hi ColorColumn ctermbg=darkgreen guibg=darkgreen
 
 map <leader>jra      :!bundle exec rspec --no-color <CR>
+map <leader>jca      :!bundle exec cucumber --no-color<CR>
 map <leader>jrf      :!bundle exec rspec --no-color % <CR>
 map <leader>jna      :!nosetests <CR>
+map <leader>jma      :!ruby test/test_helper.rb <CR>
+map <leader>jta      :!./script/test_all --no-color <CR>
+map <leader>jmf      :!ruby %<CR>
 map <leader>rpf      :!python % <CR>
 map <leader>rrf      :!ruby %<CR>
 map <leader>rb       :!bash <CR>
@@ -105,12 +109,13 @@ map  <up>    <nop>
 map  <down>  <nop>
 map  <left>  <nop>
 map  <right> <nop>
-map  l       <nop>
-map  h       <nop>
 imap <up>    <nop>
 imap <down>  <nop>
 imap <left>  <nop>
 imap <right> <nop>
+
+map <C-s> <esc>:w<CR>
+imap <C-s> <esc>:w<CR>
 
 command! Q  q  " Bind :Q  to :q
 command! W  w  " Bind :W  to :w
