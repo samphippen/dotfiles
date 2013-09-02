@@ -4,10 +4,10 @@ filetype plugin indent on
 set      nocp
 filetype plugin on
 
-let g:ctrlp_prompt_mappings = {
-            \ 'AcceptSelection("e")': ['<c-t>'],
-            \ 'AcceptSelection("t")': ['<cr>', '<2-LeftMouse>'],
-            \ }
+"let g:ctrlp_prompt_mappings = {
+"            \ 'AcceptSelection("e")': ['<c-t>'],
+"            \ 'AcceptSelection("t")': ['<cr>', '<2-LeftMouse>'],
+"            \ }
 
 execute pathogen#infect()
 
@@ -80,16 +80,23 @@ map <leader>rrf      :!ruby %<CR>
 map <leader>rb       :!bash <CR>
 map <leader>rv       :so ~/.vimrc <CR>
 map <leader>rm       :!touch % && make <CR>
+map <leader>rc       :!ctags -R<CR>
 map <leader>lt       *<CR>
 map <leader>li       gg/def.*init<CR>
 map <leader>lcd      gg/class.*<CR>
 map <leader>lrp      /^ *p <CR>
+map <leader>lws      /^ *with_stubs(<CR>
+map <leader>arp      :Ack "^ *p " <CR>
 map <leader>eal      :Align & <CR>
 map <leader>eap      :Align => <CR>
+map <leader>eae      :Align =<CR>
+map <leader>ea{      :Align {<CR>
+map <leader>erf      i.fetchlr{r(f]r)
 map <leader>epl      :PromoteToLet<cr>
 map <leader>orf      :call OpenSpec()<CR>
 map <leader>orv      :call VsplitSpec()<CR>
 map <leader>ors      :tabe .rspec<CR>
+map <leader>ogf      :tabe Gemfile<CR>
 map <leader>ovr      :tabe ~/.vimrc<CR>
 map <leader>bi       :!bundle install
 map <leader><leader> gt
@@ -124,3 +131,17 @@ command! WQ wq " Bind :WQ to :wq
 
 " autocmd VimEnter,BufNewFile,BufReadPost * silent! call HardMode()
 set backspace=indent,eol,start
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" RENAME CURRENT FILE
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+function! RenameFile()
+    let old_name = expand('%')
+    let new_name = input('New file name: ', expand('%'), 'file')
+    if new_name != '' && new_name != old_name
+        exec ':saveas ' . new_name
+        exec ':silent !rm ' . old_name
+        redraw!
+    endif
+endfunction
+map <leader>n :call RenameFile()<cr>
