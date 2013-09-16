@@ -11,6 +11,7 @@ filetype plugin on
 
 execute pathogen#infect()
 
+"TODO: DROP COMMAS MACRO
 set ruler
 set relativenumber
 set showmatch
@@ -57,6 +58,9 @@ endfunction
 au FileType ruby call TwoSpace()
 au FileType coffee call TwoSpace()
 au FileType vim call TwoSpace()
+au BufRead,BufNewFile *.go set filetype=go
+
+au FileType go set syntax=go
 
 au FileType clojure inoremap ( ()<Left>
 au BufNewFile,BufRead *.erb call TwoSpace()
@@ -102,6 +106,38 @@ map <leader>bi       :!bundle install
 map <leader><leader> gt
 map <leader><space>  /]]]]]]]]]]]]]]] <CR>
 
+map #jra      :!bundle exec rspec --no-color <CR>
+map #jca      :!bundle exec cucumber --no-color<CR>
+map #jrf      :!bundle exec rspec --no-color % <CR>
+map #jna      :!nosetests <CR>
+map #jma      :!ruby test/test_helper.rb <CR>
+map #jta      :!./script/test_all --no-color <CR>
+map #jmf      :!ruby %<CR>
+map #rpf      :!python % <CR>
+map #rrf      :!ruby %<CR>
+map #rb       :!bash <CR>
+map #rv       :so ~/.vimrc <CR>
+map #rm       :!touch % && make <CR>
+map #rc       :!ctags -R<CR>
+map #lt       *<CR>
+map #li       gg/def.*init<CR>
+map #lcd      gg/class.*<CR>
+map #lrp      /^ *p <CR>
+map #eal      :Align & <CR>
+map #eap      :Align => <CR>
+map #eae      :Align =<CR>
+map #ea{      :Align {<CR>
+map #erf      i.fetchlr{r(f]r)
+map #epl      :PromoteToLet<cr>
+map #orf      :call OpenSpec()<CR>
+map #orv      :call VsplitSpec()<CR>
+map #ors      :tabe .rspec<CR>
+map #ogf      :tabe Gemfile<CR>
+map #ovr      :tabe ~/.vimrc<CR>
+map #bi       :!bundle install
+map ## gt
+map #<space>  /]]]]]]]]]]]]]]] <CR>
+
 nnoremap <leader>h <Esc>:call ToggleHardMode()<CR>
 
 
@@ -145,3 +181,5 @@ function! RenameFile()
     endif
 endfunction
 map <leader>n :call RenameFile()<cr>
+
+set guifont=Source\ Code\ Pro:h12
