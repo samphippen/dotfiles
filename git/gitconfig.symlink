@@ -12,6 +12,7 @@
 [alias]
         co = checkout
         a = add
+        au = add -u
         cm = commit -s
         d = diff --cached
         dic = diff --cached

@@ -11,7 +11,6 @@ filetype plugin on
 
 execute pathogen#infect()
 
-"TODO: DROP COMMAS MACRO
 set ruler
 set relativenumber
 set showmatch
@@ -93,18 +92,21 @@ map <leader>lws      /^ *with_stubs(<CR>
 map <leader>arp      :Ack "^ *p " <CR>
 map <leader>eal      :Align & <CR>
 map <leader>eap      :Align => <CR>
+map <leader>edc      :s/,/,\r/g<CR>(%i<CR><ESC>%a<CR><ESC>(%=%:%s/ *$//g<CR>:noh<CR>
 map <leader>eae      :Align =<CR>
 map <leader>ea{      :Align {<CR>
 map <leader>erf      i.fetchlr{r(f]r)
 map <leader>epl      :PromoteToLet<cr>
+map <leader>etw      mp:%s/ *$//g<CR>:noh<CR>'p
 map <leader>orf      :call OpenSpec()<CR>
 map <leader>orv      :call VsplitSpec()<CR>
+map <leader>onrv     :call VsplitSpec()<CR>irequire "spec_helper"<CR><ESC>
 map <leader>ors      :tabe .rspec<CR>
 map <leader>ogf      :tabe Gemfile<CR>
 map <leader>ovr      :tabe ~/.vimrc<CR>
 map <leader>bi       :!bundle install
 map <leader><leader> gt
-map <leader><space>  /]]]]]]]]]]]]]]] <CR>
+map <leader><space>  :noh<CR>
 
 map #jra      :!bundle exec rspec --no-color <CR>
 map #jca      :!bundle exec cucumber --no-color<CR>
@@ -124,6 +126,7 @@ map #li       gg/def.*init<CR>
 map #lcd      gg/class.*<CR>
 map #lrp      /^ *p <CR>
 map #eal      :Align & <CR>
+map #edc      :s/,/,\r/%i<CR>%a<CR>j=)
 map #eap      :Align => <CR>
 map #eae      :Align =<CR>
 map #ea{      :Align {<CR>

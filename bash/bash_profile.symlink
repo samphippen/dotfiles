@@ -86,6 +86,8 @@ alias gp='git push'
 alias retag='`brew --prefix`/bin/ctags -R --exclude=.svn --exclude=.git --exclude=log --exclude=tmp *'
 alias review="git push origin HEAD:refs/for/master"
 alias c="clear && ls"
-alias typeless='history | sed "s/.*  //"  | sort | uniq -c | sort -g | tail -n 10'
+alias typeless='history | sed "s/.*  //"  | sort | uniq -c | sort -g | tail -n 100'
 alias be="bundle exec"
+alias gau="git add -u"
 bind -x '"\C-l": clear; ls'
+alias t="bundle exec rspec && bundle exec cucumber"
