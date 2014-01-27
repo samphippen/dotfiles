@@ -13,7 +13,7 @@
         co = checkout
         a = add
         au = add -u
-        cm = commit -s
+        cm = !echo "Use 'c' instead"
         d = diff --cached
         dic = diff --cached
         st = !echo "Use 'g' instead"

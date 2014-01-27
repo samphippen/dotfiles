@@ -33,7 +33,7 @@ export MANPAGER="less -X"
 alias sqlite=sqlite3
 
 # Larger bash history (allow 32³ entries; default is 500)
-export HISTSIZE=10000000
+export HISTSIZE=30000
 export HISTFILESIZE=$HISTSIZE
 
 #git in ps1 hacks
@@ -52,6 +52,8 @@ source ~/.git_completion
 
 #sr in path hacks
 export PATH=$PATH:$HOME/.sr/tools/wrapper
+
+export PATH=/usr/local/share/python:$PATH
 
 #rvm functions
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm" # Load RVM function
@@ -85,9 +87,25 @@ function cd()
 alias gp='git push'
 alias retag='`brew --prefix`/bin/ctags -R --exclude=.svn --exclude=.git --exclude=log --exclude=tmp *'
 alias review="git push origin HEAD:refs/for/master"
-alias c="clear && ls"
-alias typeless='history | sed "s/.*  //"  | sort | uniq -c | sort -g | tail -n 100'
+alias c="git commit"
+alias typeless='history | tail -n 20000 | sed "s/.*  //"  | sort | uniq -c | sort -g | tail -n 100'
 alias be="bundle exec"
 alias gau="git add -u"
 bind -x '"\C-l": clear; ls'
 alias t="bundle exec rspec && bundle exec cucumber"
+alias ber="bundle exec rspec"
+alias bec="bundle exec cucumber"
+alias u="cd .."
+alias rc="cd ~/dev/rspec/rspec-dev/repos/rspec-core"
+alias rs="cd ~/dev/rspec/rspec-dev/repos/rspec-mocks"
+alias re="cd ~/dev/rspec/rspec-dev/repos/rspec-expectations"
+alias e="vim ."
+alias srreview="git push gerrit HEAD:refs/for/master"
+
+alias librato_curl="curl -u samphippen@googlemail.com:0821f2d6a74375fa8e04b20a88b527e4577c4eca556fbba8dfc4dcd4d49e5606"
+
+export ECHO_NEST_API_KEY=NODV0LSHAP8SI9WAF
+export GRACENOTE_KEY=4833280-0C9196934FCD54453CE103F96064FD50
+export MUSICMETRIC_API_KEY=2a4277ac1ae94261aabce70284506e1f
+export SONGKICK_API_KEY=FEXq3znxXVczEfx7
+export FLICKR_API_KEY=094749539632747531e59de509dd8dc6
