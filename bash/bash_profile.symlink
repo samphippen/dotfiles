@@ -1,6 +1,6 @@
 alias git=hub
 
-export PATH=$HOME/bin:/usr/local/bin:/usr/local/share/npm/bin:$HOME/.sr/tools/bin:$PATH
+export PATH=$HOME/bin:/usr/local/bin:/usr/local/share/npm/bin:$HOME/.sr/tools/bin:$HOME/.cabal/bin:$PATH
 
 #I fucking love sprunge
 alias sprunge="curl -F 'sprunge=<-' http://sprunge.us"
@@ -99,8 +99,10 @@ alias u="cd .."
 alias rc="cd ~/dev/rspec/rspec-dev/repos/rspec-core"
 alias rs="cd ~/dev/rspec/rspec-dev/repos/rspec-mocks"
 alias re="cd ~/dev/rspec/rspec-dev/repos/rspec-expectations"
+alias rss="cd ~/dev/rspec/rspec-dev/repos/rspec-support"
 alias e="vim ."
 alias srreview="git push gerrit HEAD:refs/for/master"
+alias ss="./script/server"
 
 alias librato_curl="curl -u samphippen@googlemail.com:0821f2d6a74375fa8e04b20a88b527e4577c4eca556fbba8dfc4dcd4d49e5606"
 

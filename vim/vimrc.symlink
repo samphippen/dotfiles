@@ -23,6 +23,8 @@ set expandtab
 set nowrap
 set hlsearch
 
+let g:ausession=".vimsession"
+
 set wildignore+=*venv/*,*.so,*.swp    " MacOSX/Linux
 
 let g:ctrlp_custom_ignore = 'venv'
@@ -71,6 +73,8 @@ au BufNewFile,BufRead *.erb call TwoSpace()
 
 set list
 set listchars=tab:→\ ,trail:☃
+" None of these should be word dividers, so make them not be
+set isk+=_,$,@,%,#,-
 
 set background=dark
 colorscheme solarized
@@ -110,8 +114,11 @@ map <leader>ors      :tabe .rspec<CR>
 map <leader>ogf      :tabe Gemfile<CR>
 map <leader>ovr      :tabe ~/.vimrc<CR>/map.*leader<CR>:noh<CR>
 map <leader>bi       :!bundle install<CR>
+map <leader>ft       zfat
+map <leader>uft      zR
 map <leader><leader> gt
 map <leader><space>  :noh<CR>
+map <esc>            <esc>:w<CR>
 
 nnoremap <leader>h <Esc>:call ToggleHardMode()<CR>
 
