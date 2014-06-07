@@ -73,10 +73,9 @@ au BufNewFile,BufRead *.erb call TwoSpace()
 
 set list
 set listchars=tab:→\ ,trail:☃
-" None of these should be word dividers, so make them not be
-set isk+=_,$,@,%,#,-
 
 set background=dark
+let g:solarized_termcolors=256
 colorscheme solarized
 hi ColorColumn ctermbg=darkgreen guibg=darkgreen
 
@@ -95,6 +94,7 @@ map <leader>rv       :so ~/.vimrc <CR>
 map <leader>rm       :!touch % && make <CR>
 map <leader>rc       :!ctags -R<CR>
 map <leader>eir      o<ESC>ogem "rspec-core", :github => "rspec/rspec-core"<CR>gem "rspec-expectations", :github => "rspec/rspec-expectations"<CR>gem "rspec-mocks", :github => "rspec/rspec-mocks"<CR>gem "rspec-support", :github => "rspec/rspec-support"<CR><ESC>
+map <leader>eipr     o<ESC>ogem "rspec-core", :path => "/Users/sam/dev/rspec/rspec-dev/repos/rspec-core"<CR>gem "rspec-expectations", :path => "/Users/sam/dev/rspec/rspec-dev/repos/rspec-expectations"<CR>gem "rspec-mocks", :path => "/Users/sam/dev/rspec/rspec-dev/repos/rspec-mocks"<CR>gem "rspec-support", :path => "/Users/sam/dev/rspec/rspec-dev/repos/rspec-support"<CR><ESC>
 map <leader>li       gg/def.*init<CR>
 map <leader>lcd      gg/class.*<CR>
 map <leader>lrp      /^ *p <CR>
@@ -107,6 +107,7 @@ map <leader>ea{      :Align {<CR>
 map <leader>erf      i.fetchlr{r(f]r)
 map <leader>epl      :PromoteToLet<cr>
 map <leader>etw      mp:%s/ *$//g<CR>:noh<CR>'p
+map <leader>ert      :%s/\t/    /g<CR>
 map <leader>orf      :call OpenSpec()<CR>
 map <leader>orv      :call VsplitSpec()<CR>
 map <leader>onrv     :call VsplitSpec()<CR>irequire "spec_helper"<CR><ESC>
@@ -119,6 +120,7 @@ map <leader>uft      zR
 map <leader><leader> gt
 map <leader><space>  :noh<CR>
 map <esc>            <esc>:w<CR>
+imap <esc>            <esc>:w<CR>
 
 nnoremap <leader>h <Esc>:call ToggleHardMode()<CR>
 
@@ -166,3 +168,10 @@ endfunction
 map <leader>n :call RenameFile()<cr>
 
 set guifont=Source\ Code\ Pro:h12
+
+" None of these should be word dividers, so make them not be
+set isk+=_,$,@,%,#,-
+
+vmap <C-c><C-c> <Plug>SendSelectionToTmux
+nmap <C-c><C-c> <Plug>NormalModeSendToTmux
+nmap <C-c>r <Plug>SetTmuxVars

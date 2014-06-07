@@ -38,7 +38,7 @@ export HISTFILESIZE=$HISTSIZE
 
 #git in ps1 hacks
 parse_git_branch() {
-  git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
+    git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
 }
 
 if which apmcounter > /dev/null
@@ -71,12 +71,12 @@ alias serve="python -m SimpleHTTPServer"
 export WOLFRAM_APPID="8PUKL9-5W7Y9953W2"
 
 function g {
- if [[ $# > 0 ]]
- then
-     git $@
- else
-     git status
- fi
+if [[ $# > 0 ]]
+then
+    git $@
+else
+    git status
+fi
 }
 
 function cd()
@@ -85,12 +85,14 @@ function cd()
 }
 
 alias gp='git push'
+alias gcm="git commit -m"
 alias retag='`brew --prefix`/bin/ctags -R --exclude=.svn --exclude=.git --exclude=log --exclude=tmp *'
 alias review="git push origin HEAD:refs/for/master"
 alias c="git commit"
 alias typeless='history | tail -n 20000 | sed "s/.*  //"  | sort | uniq -c | sort -g | tail -n 100'
 alias be="bundle exec"
 alias gau="git add -u"
+alias gca="git commit --amend"
 bind -x '"\C-l": clear; ls'
 alias t="bundle exec rspec && bundle exec cucumber"
 alias ber="bundle exec rspec"
@@ -100,9 +102,12 @@ alias rc="cd ~/dev/rspec/rspec-dev/repos/rspec-core"
 alias rs="cd ~/dev/rspec/rspec-dev/repos/rspec-mocks"
 alias re="cd ~/dev/rspec/rspec-dev/repos/rspec-expectations"
 alias rss="cd ~/dev/rspec/rspec-dev/repos/rspec-support"
+alias rr="cd ~/dev/rspec/rspec-dev/repos/rspec-rails"
+alias rd="cd ~/dev/rspec/rspec-dev/"
 alias e="vim ."
 alias srreview="git push gerrit HEAD:refs/for/master"
 alias ss="./script/server"
+alias fu="fig up"
 
 alias librato_curl="curl -u samphippen@googlemail.com:0821f2d6a74375fa8e04b20a88b527e4577c4eca556fbba8dfc4dcd4d49e5606"
 
@@ -111,3 +116,41 @@ export GRACENOTE_KEY=4833280-0C9196934FCD54453CE103F96064FD50
 export MUSICMETRIC_API_KEY=2a4277ac1ae94261aabce70284506e1f
 export SONGKICK_API_KEY=FEXq3znxXVczEfx7
 export FLICKR_API_KEY=094749539632747531e59de509dd8dc6
+export GOPATH="$HOME/dev/go"
+
+export PATH="$PATH:$GOPATH/bin"
+
+gg_replace() {
+    if [[ "$#" == "0" ]]; then
+        echo 'Usage:'
+        echo '  gg_replace term replacement file_mask'
+        echo
+        echo 'Example:'
+        echo '  gg_replace cappuchino cappuccino *.html'
+        echo
+    else
+        find=$1; shift
+        replace=$1; shift
+
+        ORIG_GLOBIGNORE=$GLOBIGNORE
+        GLOBIGNORE=*.*
+
+        if [[ "$#" = "0" ]]; then
+            set -- ' ' $@
+        fi
+
+        while [[ "$#" -gt "0" ]]; do
+            for file in `git grep -l $find -- $1`; do
+                sed -e "s/$find/$replace/g" -i '' $file
+            done
+            shift
+        done
+
+        GLOBIGNORE=$ORIG_GLOBIGNORE
+    fi
+}
+gg_dasherize() {
+    gg_replace $1 `echo $1 | sed -e 's/_/-/g'` $2
+}
+
+alias sprungepaste="pbpaste | sprunge | pbcopy"
