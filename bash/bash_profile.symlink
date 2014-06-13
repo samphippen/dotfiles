@@ -10,13 +10,17 @@ export HOST=""
 #and give ls colors
 if [ `uname` == "Darwin" ]
 then
-    alias ls="ls -G"
+    alias the_ls="/bin/ls -G"
     export PATH=$PATH:/usr/texbin
+    alias vim="vim -p"
+    export EDITOR="vim"
 else
     alias vim="vim -p"
     export EDITOR="vim"
-    alias ls="ls --color"
+    export the_ls="/bin/ls --color"
 fi
+
+alias ls='echo no'
 
 tty | grep -i "pts"
 if [ $? == 0 ]
@@ -78,7 +82,7 @@ fi
 
 function cd()
 {
-    builtin cd "$*" && ls
+    builtin cd "$*" && the_ls
 }
 
 alias gp='git push'
@@ -90,7 +94,7 @@ alias typeless='history | tail -n 20000 | sed "s/.*  //"  | sort | uniq -c | sor
 alias be="bundle exec"
 alias gau="git add -u"
 alias gca="git commit --amend"
-bind -x '"\C-l": clear; ls'
+bind -x '"\C-l": clear; the_ls'
 alias t="bundle exec rspec && bundle exec cucumber"
 alias ber="bundle exec rspec"
 alias bec="bundle exec cucumber"
