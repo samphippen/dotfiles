@@ -10,10 +10,7 @@ export HOST=""
 #and give ls colors
 if [ `uname` == "Darwin" ]
 then
-    alias vim="mvim -p"
     alias ls="ls -G"
-    export EDITOR='mvim -f'
-    export GIT_EDITOR='mvim -f --nomru -c "au VimLeave * !open -a Terminal"'
     export PATH=$PATH:/usr/texbin
 else
     alias vim="vim -p"

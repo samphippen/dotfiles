@@ -1,15 +1,44 @@
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+" alternatively, pass a path where Vundle should install plugins
+"call vundle#begin('~/some/path/here')
+
+" let Vundle manage Vundle, required
+Plugin 'gmarik/Vundle.vim'
+
+" The following are examples of different formats supported.
+" Keep Plugin commands between vundle#begin/end.
+" plugin on GitHub repo
+Plugin 'mileszs/ack.vim'
+Plugin 'kien/ctrlp.vim'
+Plugin 'vim-scripts/Conque-Shell'
+Plugin 'altercation/vim-colors-solarized'
+Plugin 'tpope/vim-surround'
+Plugin 'https://github.com/vim-scripts/REPL-plugin'
+Plugin 'Align'
+
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
+" To ignore plugin indent changes, instead use:
+"filetype plugin on
+"
+" Brief help
+" :PluginList          - list configured plugins
+" :PluginInstall(!)    - install (update) plugins
+" :PluginSearch(!) foo - search (or refresh cache first) for foo
+" :PluginClean(!)      - confirm (or auto-approve) removal of unused plugins
+"
+" see :h vundle for more details or wiki for FAQ
+" Put your non-Plugin stuff after this line
+
 set      noswapfile
 syntax   on
 filetype plugin indent on
 set      nocp
 filetype plugin on
 
-"let g:ctrlp_prompt_mappings = {
-"            \ 'AcceptSelection("e")': ['<c-t>'],
-"            \ 'AcceptSelection("t")': ['<cr>', '<2-LeftMouse>'],
-"            \ }
-
-execute pathogen#infect()
 
 set ruler
 set relativenumber
@@ -24,11 +53,6 @@ set nowrap
 set hlsearch
 
 let g:ausession=".vimsession"
-
-set wildignore+=*venv/*,*.so,*.swp    " MacOSX/Linux
-
-let g:ctrlp_custom_ignore = 'venv'
-
 
 "mother fucking makefiles
 autocmd FileType make setlocal noexpandtab
@@ -50,36 +74,18 @@ function! VsplitSpec()
     exec('vsplit ' . path)
 endfunction
 
-function! PromoteToLet()
-    :normal! dd
-    " :exec '?^\s*it\>'
-    :normal! P
-    :.s/\(\w\+\) = \(.*\)$/let(:\1) { \2 }/
-    :normal ==
-    :normal! dd
-endfunction
-
-:command! PromoteToLet :call PromoteToLet()
-
 au FileType ruby call TwoSpace()
 au FileType coffee call TwoSpace()
 au FileType vim call TwoSpace()
-au BufRead,BufNewFile *.go set filetype=go
-
-au FileType go set syntax=go
-
-au FileType clojure inoremap ( ()<Left>
 au BufNewFile,BufRead *.erb call TwoSpace()
+au BufRead,BufNewFile *.go set filetype=go
 
 set list
 set listchars=tab:→\ ,trail:☃
 
-set background=dark
-let g:solarized_termcolors=256
-colorscheme solarized
 hi ColorColumn ctermbg=darkgreen guibg=darkgreen
 
-map <leader>jra      :!bundle exec rspec --no-color <CR>
+map <leader>jra      :!undli exec rspec --no-color <CR>
 map <leader>jca      :!bundle exec cucumber --no-color<CR>
 map <leader>jrf      :!bundle exec rspec --no-color % <CR>
 map <leader>jna      :!nosetests <CR>
@@ -95,6 +101,7 @@ map <leader>rm       :!touch % && make <CR>
 map <leader>rc       :!ctags -R<CR>
 map <leader>eir      o<ESC>ogem "rspec-core", :github => "rspec/rspec-core"<CR>gem "rspec-expectations", :github => "rspec/rspec-expectations"<CR>gem "rspec-mocks", :github => "rspec/rspec-mocks"<CR>gem "rspec-support", :github => "rspec/rspec-support"<CR><ESC>
 map <leader>eipr     o<ESC>ogem "rspec-core", :path => "/Users/sam/dev/rspec/rspec-dev/repos/rspec-core"<CR>gem "rspec-expectations", :path => "/Users/sam/dev/rspec/rspec-dev/repos/rspec-expectations"<CR>gem "rspec-mocks", :path => "/Users/sam/dev/rspec/rspec-dev/repos/rspec-mocks"<CR>gem "rspec-support", :path => "/Users/sam/dev/rspec/rspec-dev/repos/rspec-support"<CR><ESC>
+map <leader>eid      orequire 'pry'; binding.pry<ESC>
 map <leader>li       gg/def.*init<CR>
 map <leader>lcd      gg/class.*<CR>
 map <leader>lrp      /^ *p <CR>
@@ -119,19 +126,12 @@ map <leader>ft       zfat
 map <leader>uft      zR
 map <leader><leader> gt
 map <leader><space>  :noh<CR>
-map <esc>            <esc>:w<CR>
-imap <esc>            <esc>:w<CR>
+imap <esc>           <esc>:w<CR>
 
 nnoremap <leader>h <Esc>:call ToggleHardMode()<CR>
 
-
-if has("gui_running")
-    set guioptions=egmrt
-endif
-
 set incsearch
 set vb
-
 
 map  <up>    <nop>
 map  <down>  <nop>
@@ -150,7 +150,6 @@ command! W  w  " Bind :W  to :w
 command! Wq wq " Bind :Wq to :wq
 command! WQ wq " Bind :WQ to :wq
 
-" autocmd VimEnter,BufNewFile,BufReadPost * silent! call HardMode()
 set backspace=indent,eol,start
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -167,11 +166,8 @@ function! RenameFile()
 endfunction
 map <leader>n :call RenameFile()<cr>
 
-set guifont=Source\ Code\ Pro:h12
-
-" None of these should be word dividers, so make them not be
-set isk+=_,$,@,%,#,-
-
 vmap <C-c><C-c> <Plug>SendSelectionToTmux
 nmap <C-c><C-c> <Plug>NormalModeSendToTmux
 nmap <C-c>r <Plug>SetTmuxVars
+
+colorscheme solarized
