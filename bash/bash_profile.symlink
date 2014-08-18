@@ -17,7 +17,7 @@ then
 else
     alias vim="vim -p"
     export EDITOR="vim"
-    export the_ls="/bin/ls --color"
+    alias the_ls="/bin/ls --color"
 fi
 
 alias ls='echo no'
