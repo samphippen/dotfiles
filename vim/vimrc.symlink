@@ -1,4 +1,4 @@
-" set the runtime path to include Vundle and initialize
+"set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 " alternatively, pass a path where Vundle should install plugins
@@ -15,8 +15,12 @@ Plugin 'kien/ctrlp.vim'
 Plugin 'vim-scripts/Conque-Shell'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'tpope/vim-surround'
+Plugin 'wting/rust.vim'
+Plugin 'tpope/vim-endwise'
 Plugin 'https://github.com/vim-scripts/REPL-plugin'
 Plugin 'Align'
+Plugin 'toyamarinyon/vim-swift'
+Plugin 'rodjek/vim-puppet'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -38,6 +42,8 @@ syntax   on
 filetype plugin indent on
 set      nocp
 filetype plugin on
+
+let g:ctrlp_clear_cache_on_exit=0
 
 
 set ruler
@@ -83,28 +89,13 @@ au BufRead,BufNewFile *.go set filetype=go
 set list
 set listchars=tab:→\ ,trail:☃
 
-hi ColorColumn ctermbg=darkgreen guibg=darkgreen
 
 function! RunAllTests()
-    let filename=tempname()
-    exe ":!unbuffer bundle exec rspec 2>&1 | tee /tmp/file"
-    call system('cat /tmp/file | sed "s:.\[[0-9;]*[mK]::g" > ' . filename)
-    set splitright
-    exe "vsplit" . filename
-    set nosplitright
-    exec ":vertical resize 80"
-    set wrap
+    exe expand(":!bundle exec rspec")
 endfunction
 
 function! RunRSpecFile()
-    let filename=tempname()
-    exe expand(":!unbuffer bundle exec rspec % 2>&1 | tee /tmp/file")
-    call system('cat /tmp/file | sed "s:.\[[0-9;]*[mK]::g" > ' . filename)
-    set splitright
-    exe "vsplit" . filename
-    set nosplitright
-    exec ":vertical resize 80"
-    set wrap
+    exe expand(":!bundle exec rspec %")
 endfunction
 
 map <leader>jra      :call RunAllTests()<CR>
@@ -113,7 +104,7 @@ map <leader>jrf      :call RunRSpecFile()<CR>
 map <leader>jna      :!nosetests <CR>
 map <leader>jnf      :!nosetests %<CR>
 map <leader>jma      :!ruby test/test_helper.rb <CR>
-map <leader>jta      :!./script/test_all --no-color <CR>
+map <leader>jta      :!./script/test<CR>
 map <leader>jmf      :!ruby %<CR>
 map <leader>rpf      :!python % <CR>
 map <leader>rrf      :!ruby %<CR>
@@ -155,6 +146,9 @@ nnoremap <leader>h <Esc>:call ToggleHardMode()<CR>
 set incsearch
 set vb
 
+map <C-s> <esc>:w<CR>
+imap <C-s> <esc>:w<CR>
+
 map  <up>    <nop>
 map  <down>  <nop>
 map  <left>  <nop>
@@ -164,8 +158,6 @@ imap <down>  <nop>
 imap <left>  <nop>
 imap <right> <nop>
 
-map <C-s> <esc>:w<CR>
-imap <C-s> <esc>:w<CR>
 
 command! Q  q  " Bind :Q  to :q
 command! W  w  " Bind :W  to :w
@@ -193,3 +185,5 @@ nmap <C-c><C-c> <Plug>NormalModeSendToTmux
 nmap <C-c>r <Plug>SetTmuxVars
 
 colorscheme solarized
+
+hi ColorColumn ctermbg=blue
