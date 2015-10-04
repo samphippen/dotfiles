@@ -15,6 +15,7 @@ Plugin 'kien/ctrlp.vim'
 Plugin 'vim-scripts/Conque-Shell'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'tpope/vim-surround'
+Plugin 'tpope/vim-fugitive'
 Plugin 'wting/rust.vim'
 Plugin 'tpope/vim-endwise'
 Plugin 'https://github.com/vim-scripts/REPL-plugin'
@@ -98,16 +99,18 @@ function! RunRSpecFile()
     exe expand(":!bundle exec rspec %")
 endfunction
 
+
 map <leader>jra      :call RunAllTests()<CR>
 map <leader>jca      :!bundle exec cucumber --no-color<CR>
 map <leader>jrf      :call RunRSpecFile()<CR>
 map <leader>jna      :!nosetests <CR>
 map <leader>jnf      :!nosetests %<CR>
 map <leader>jma      :!ruby test/test_helper.rb <CR>
+map <leader>jmf      :!bundle exec ruby % <CR>
 map <leader>jta      :!./script/test<CR>
 map <leader>jmf      :!ruby %<CR>
 map <leader>rpf      :!python % <CR>
-map <leader>rrf      :!ruby %<CR>
+map <leader>rrf      :!bundle exec ruby %<CR>
 map <leader>rb       :!bash <CR>
 map <leader>rv       :so ~/.vimrc <CR>
 map <leader>rm       :!touch % && make <CR>
@@ -187,3 +190,4 @@ nmap <C-c>r <Plug>SetTmuxVars
 colorscheme solarized
 
 hi ColorColumn ctermbg=blue
+set background=dark

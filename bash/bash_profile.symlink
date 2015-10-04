@@ -48,9 +48,6 @@ fi
 
 source ~/.git_completion
 
-#sr in path hacks
-export PATH=$PATH:$HOME/.sr/tools/wrapper
-
 export PATH=/usr/local/share/python:$PATH
 
 
@@ -99,12 +96,13 @@ alias rs="cd ~/dev/rspec/rspec-dev/repos/rspec-mocks"
 alias re="cd ~/dev/rspec/rspec-dev/repos/rspec-expectations"
 alias rss="cd ~/dev/rspec/rspec-dev/repos/rspec-support"
 alias rr="cd ~/dev/rspec/rspec-dev/repos/rspec-rails"
-alias rd="cd ~/dev/rspec/rspec-dev/"
+alias rd="cd ~/dev/rspec/rspec-dev/repos/rspec-dev"
+alias rg="cd ~/dev/rspec/rspec-dev/repos/rspec"
 alias e="vim ."
 alias srreview="git push gerrit HEAD:refs/for/master"
 alias fs="foreman start"
 alias ss="./script/server"
-alias fu="fig up"
+alias fu="docker-compose kill && docker-compose up"
 
 alias librato_curl="curl -u samphippen@googlemail.com:0821f2d6a74375fa8e04b20a88b527e4577c4eca556fbba8dfc4dcd4d49e5606"
 
@@ -156,8 +154,10 @@ alias sd='./script/dbshell'
 alias rl='bundle exec rubocop lib'
 export PATH=/Users/sam/Downloads/adt-bundle-mac-x86_64-20140624/sdk/platform-tools:/Users/sam/Downloads/adt-bundle-mac-x86_64-20140624/sdk/tools:/Applications/Postgres.app/Contents/Versions/9.3/bin:$HOME/bin:/usr/local/bin:/usr/local/share/npm/bin:$HOME/.sr/tools/bin:$HOME/.cabal/bin:$PATH
 source /usr/local/share/chruby/chruby.sh
-chruby ruby-2.1.5
+chruby 2.2.3
 export NODE_PATH=$(npm root -g)
 alias stripcolors="perl -pe 's/\e\[?.*?[\@-~]//g'"
 alias cspree='cd ~/dev/fp/lostmyname/spree/core'
 alias ceagle='cd ~/dev/fp/lostmyname/eagle'
+alias ckya='cd ~/dev/fp/getkya/getkya'
+alias dbundle='ruby -I ~/dev/bundler/lib ~/dev/bundler/exe/bundle'
