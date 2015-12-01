@@ -100,6 +100,8 @@ function! RunRSpecFile()
 endfunction
 
 
+au BufRead,BufNewFile *.md setlocal textwidth=80
+
 map <leader>jra      :call RunAllTests()<CR>
 map <leader>jca      :!bundle exec cucumber --no-color<CR>
 map <leader>jrf      :call RunRSpecFile()<CR>
@@ -140,7 +142,7 @@ map <leader>ovr      :tabe ~/.vimrc<CR>/map.*leader<CR>:noh<CR>
 map <leader>bi       :!bundle install<CR>
 map <leader>ft       zfat
 map <leader>uft      zR
-map <leader><leader> gt
+map <leader><leader> :!git add . && git commit -m "Words: `wc -w rspec-mocks-under-the-hood.md`"<CR>
 map <leader><space>  :noh<CR>
 imap <esc>           <esc>:w<CR>
 
