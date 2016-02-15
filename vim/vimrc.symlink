@@ -22,6 +22,7 @@ Plugin 'https://github.com/vim-scripts/REPL-plugin'
 Plugin 'Align'
 Plugin 'toyamarinyon/vim-swift'
 Plugin 'rodjek/vim-puppet'
+Plugin 'https://github.com/fatih/vim-go'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
