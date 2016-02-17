@@ -162,3 +162,4 @@ alias ceagle='cd ~/dev/fp/lostmyname/eagle'
 alias ckya='cd ~/dev/fp/getkya/getkya'
 alias dbundle='ruby -I ~/dev/bundler/lib ~/dev/bundler/exe/bundle'
 alias fig='docker-compose'
+export GO15VENDOREXPERIMENT=1
