@@ -16,6 +16,7 @@ Plugin 'vim-scripts/Conque-Shell'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-fugitive'
+Plugin 'takac/vim-hardtime'
 Plugin 'wting/rust.vim'
 Plugin 'tpope/vim-endwise'
 Plugin 'https://github.com/vim-scripts/REPL-plugin'
@@ -23,6 +24,7 @@ Plugin 'Align'
 Plugin 'toyamarinyon/vim-swift'
 Plugin 'rodjek/vim-puppet'
 Plugin 'https://github.com/fatih/vim-go'
+Plugin 'https://github.com/kchmck/vim-coffee-script.git'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -53,6 +55,8 @@ set relativenumber
 set showmatch
 set showcmd
 set ignorecase
+set ttyfast
+set lazyredraw
 set colorcolumn=80
 set tabstop=4
 set shiftwidth=4
@@ -66,20 +70,23 @@ let g:ausession=".vimsession"
 autocmd FileType make setlocal noexpandtab
 
 function! TwoSpace()
-    setlocal ts=2
-    setlocal sw=2
+  setlocal ts=2
+  setlocal sw=2
 endfunction
 
 function! OpenSpec()
-    let repl = substitute(substitute(expand('%'), '\.rb', '', ''), "lib/", "spec/", "")
-    let path = repl . '_spec.rb'
-    exec('tabe ' . path)
+  let repl = substitute(substitute(expand('%'), '\.rb', '', ''), "lib/", "spec/", "")
+  let path = repl . '_spec.rb'
+  exec('tabe ' . path)
 endfunction
 
 function! VsplitSpec()
-    let repl = substitute(substitute(substitute(expand('%'), '\.rb', '', ''), "lib/", "spec/", ""), "app/", "spec/app/", "")
-    let path = repl . '_spec.rb'
-    exec('vsplit ' . path)
+  let repl = substitute(substitute(substitute(expand('%'), '\.rb', '', ''), "lib/", "spec/", ""), "app/", "spec/", "")
+  let path = repl . '_spec.rb'
+  let folder = fnamemodify(path, ":p:h")
+  echom folder
+  exec('!mkdir -p ' . folder)
+  exec('vsplit ' . path)
 endfunction
 
 au FileType ruby call TwoSpace()
@@ -93,15 +100,13 @@ set listchars=tab:→\ ,trail:☃
 
 
 function! RunAllTests()
-    exe expand(":!bundle exec rspec")
+  exe expand(":!bundle exec rspec")
 endfunction
 
 function! RunRSpecFile()
-    exe expand(":!bundle exec rspec %")
+  exe expand(":!bundle exec rspec %")
 endfunction
 
-
-au BufRead,BufNewFile *.md setlocal textwidth=80
 
 map <leader>jra      :call RunAllTests()<CR>
 map <leader>jca      :!bundle exec cucumber --no-color<CR>
@@ -131,6 +136,7 @@ map <leader>edc      mzO<ESC>j:s/,/,\r/g<CR>(%i<CR><ESC>%a<CR><ESC>(%=%:%s/ *$//
 map <leader>eae      :Align =<CR>
 map <leader>ea{      :Align {<CR>
 map <leader>erf      i.fetchlr{r(f]r)
+map <leader>erh      xea:llxxx
 map <leader>epl      :PromoteToLet<cr>
 map <leader>etw      mp:%s/ *$//g<CR>:noh<CR>'p
 map <leader>ert      :%s/\t/    /g<CR>
@@ -176,13 +182,13 @@ set backspace=indent,eol,start
 " RENAME CURRENT FILE
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 function! RenameFile()
-    let old_name = expand('%')
-    let new_name = input('New file name: ', expand('%'), 'file')
-    if new_name != '' && new_name != old_name
-        exec ':saveas ' . new_name
-        exec ':silent !rm ' . old_name
-        redraw!
-    endif
+  let old_name = expand('%')
+  let new_name = input('New file name: ', expand('%'), 'file')
+  if new_name != '' && new_name != old_name
+    exec ':saveas ' . new_name
+    exec ':silent !rm ' . old_name
+    redraw!
+  endif
 endfunction
 map <leader>n :call RenameFile()<cr>
 
@@ -192,5 +198,13 @@ nmap <C-c>r <Plug>SetTmuxVars
 
 colorscheme solarized
 
-hi ColorColumn ctermbg=blue
 set background=dark
+
+map j gj
+map k gk
+
+autocmd FileType markdown set textwidth=80
+autocmd FileType markdown set spell
+autocmd FileType markdown set colorcolumn=81
+autocmd FileType markdown hi ColorColumn ctermbg=4
+autocmd FileType markdown set tabstop=2
