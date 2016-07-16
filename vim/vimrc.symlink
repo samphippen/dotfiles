@@ -85,7 +85,7 @@ function! VsplitSpec()
   let path = repl . '_spec.rb'
   let folder = fnamemodify(path, ":p:h")
   echom folder
-  exec('!mkdir -p ' . folder)
+  silent exec('!mkdir -p ' . folder)
   exec('vsplit ' . path)
 endfunction
 
