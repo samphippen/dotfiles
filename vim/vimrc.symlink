@@ -14,10 +14,12 @@ Plugin 'mileszs/ack.vim'
 Plugin 'kien/ctrlp.vim'
 Plugin 'vim-scripts/Conque-Shell'
 Plugin 'altercation/vim-colors-solarized'
+Plugin 'https://github.com/nono/vim-handlebars'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-fugitive'
 Plugin 'takac/vim-hardtime'
-Plugin 'wting/rust.vim'
+Plugin 'https://github.com/rust-lang/rust.vim'
+Plugin 'https://github.com/scrooloose/syntastic'
 Plugin 'tpope/vim-endwise'
 Plugin 'https://github.com/vim-scripts/REPL-plugin'
 Plugin 'Align'
@@ -69,6 +71,7 @@ let g:ausession=".vimsession"
 
 "mother fucking makefiles
 autocmd FileType make setlocal noexpandtab
+autocmd FileType go setlocal noexpandtab
 
 function! TwoSpace()
   setlocal ts=2
@@ -79,6 +82,11 @@ function! OpenSpec()
   let repl = substitute(substitute(expand('%'), '\.rb', '', ''), "lib/", "spec/", "")
   let path = repl . '_spec.rb'
   exec('tabe ' . path)
+endfunction
+
+
+function! RunLastFailure()
+  exec('!bundle exec rspec --next-failure')
 endfunction
 
 function! VsplitSpec()
@@ -100,11 +108,14 @@ set list
 set listchars=tab:→\ ,trail:☃
 
 
+let g:rspec_command = "!bundle exec rspec {spec}"
+
 map <leader>jca      :!bundle exec cucumber --no-color<CR>
 map <leader>jra      :call RunAllSpecs()<CR>
 map <leader>jrf      :call RunCurrentSpecFile()<CR>
 map <leader>jrn      :call RunNearestSpec()<CR>
 map <leader>jrl      :call RunLastSpec()<CR>
+map <leader>jr!      :call RunLastFailure()<CR>
 map <leader>jna      :!nosetests <CR>
 map <leader>jnf      :!nosetests %<CR>
 map <leader>jma      :!ruby test/test_helper.rb <CR>
@@ -117,6 +128,9 @@ map <leader>rb       :!bash <CR>
 map <leader>rv       :so ~/.vimrc <CR>
 map <leader>rm       :!touch % && make <CR>
 map <leader>rc       :!ctags -R<CR>
+map <leader>cr      :!cargo run<CR>
+map <leader>cb      :!bash -c 'cargo build 2>&1 \| head -n 10'<CR>
+map <leader>ct      :!cargo test<CR>
 map <leader>eir      o<ESC>ogem "rspec-core", :github => "rspec/rspec-core"<CR>gem "rspec-expectations", :github => "rspec/rspec-expectations"<CR>gem "rspec-mocks", :github => "rspec/rspec-mocks"<CR>gem "rspec-support", :github => "rspec/rspec-support"<CR><ESC>
 map <leader>eipr     o<ESC>ogem "rspec-core", :path => "/Users/sam/dev/rspec/rspec-dev/repos/rspec-core"<CR>gem "rspec-expectations", :path => "/Users/sam/dev/rspec/rspec-dev/repos/rspec-expectations"<CR>gem "rspec-mocks", :path => "/Users/sam/dev/rspec/rspec-dev/repos/rspec-mocks"<CR>gem "rspec-support", :path => "/Users/sam/dev/rspec/rspec-dev/repos/rspec-support"<CR><ESC>
 map <leader>eid      orequire 'pry'; binding.pry<ESC>
@@ -124,9 +138,11 @@ map <leader>li       gg/def.*init<CR>
 map <leader>lcd      gg/class.*<CR>
 map <leader>lrp      /^ *p <CR>
 map <leader>arp      :Ack "^ *p " <CR>
+map <leader>apr      :Ack "binding.pry " <CR>
 map <leader>eal      :Align & <CR>
 map <leader>eap      :Align => <CR>
 map <leader>edc      mzO<ESC>j:s/,/,\r/g<CR>(%i<CR><ESC>%a<CR><ESC>(%=%:%s/ *$//g<CR>:noh<CR>'zkdd
+map <leader>ecl      :silent! %s/\[x\]/\[ \]/g<CR>gg
 map <leader>eae      :Align =<CR>
 map <leader>ea{      :Align {<CR>
 map <leader>erf      i.fetchlr{r(f]r)
@@ -143,7 +159,7 @@ map <leader>ovr      :tabe ~/.vimrc<CR>/map.*leader<CR>:noh<CR>
 map <leader>bi       :!bundle install<CR>
 map <leader>ft       zfat
 map <leader>uft      zR
-map <leader><leader> :!git add . && git commit -m "Words: `wc -w rspec-mocks-under-the-hood.md`"<CR>
+map <leader>gt       :!go test ./...<CR>
 map <leader><space>  :noh<CR>
 imap <esc>           <esc>:w<CR>
 
@@ -202,3 +218,20 @@ autocmd FileType markdown set spell
 autocmd FileType markdown set colorcolumn=81
 autocmd FileType markdown hi ColorColumn ctermbg=4
 autocmd FileType markdown set tabstop=2
+map <leader>y "*y
+
+
+" Use the old vim regex engine (version 1, as opposed to version 2, which was
+" introduced in Vim 7.3.969). The Ruby syntax highlighting is significantly
+" slower with the new regex engine.
+set re=1
+let g:syntastic_mode_map = { 'passive_filetypes': ['python', 'css', 'scss', 'sass', 'haml'] }
+let g:ctrlp_max_files=0
+let g:go_fmt_command = "goimports"
+
+if executable("rg")
+  set grepprg=rg\ --vimgrep\ --no-heading
+  set grepformat=%f:%l:%c:%m,%f:%l:%m
+endif
+
+let g:ackprg = 'rg --vimgrep --no-heading'

@@ -11,10 +11,8 @@ if [ `uname` == "Darwin" ]
 then
     alias ls="/bin/ls -G"
     export PATH=$PATH:/usr/texbin
-    alias vim="vim -p"
     export EDITOR="vim"
 else
-    alias vim="vim -p"
     export EDITOR="vim"
     alias ls="/bin/ls --color"
 fi
@@ -39,16 +37,21 @@ parse_git_branch() {
     git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
 }
 
-if which apmcounter > /dev/null
-then
-    export PS1='$HOST$(apmcounter) $(parse_git_branch " [%s]  ")\$ '
-else
-    export PS1='$HOST$(parse_git_branch " [%s]  ")\$ '
-fi
+dotfiles_dirty() {
+    builtin cd ~/.dotfiles
+    if [[ $(git diff --shortstat 2> /dev/null | tail -n1) != "" ]]
+    then
+        echo "!! DOTFILES ARE DIRTY PLEASE CLEAN !! "
+    else
+        echo ""
+    fi
+}
+
+export PS1='$(dotfiles_dirty)$HOST$(parse_git_branch " [%s]  ")\$ '
 
 source ~/.git_completion
 
-export PATH=/usr/local/share/python:$PATH
+export PATH=/usr/local/share/python:$HOME/.cargo/bin:$PATH
 
 
 #brew bash completion
@@ -86,6 +89,7 @@ alias typeless='history | tail -n 20000 | sed "s/.*  //"  | sort | uniq -c | sor
 alias be="bundle exec"
 alias gau="git add -u"
 alias gca="git commit --amend"
+alias gcf="git commit --fixup HEAD"
 bind -x '"\C-l": clear; ls'
 alias t="bundle exec rspec && bundle exec cucumber"
 alias ber="bundle exec rspec"
@@ -111,7 +115,7 @@ export GRACENOTE_KEY=4833280-0C9196934FCD54453CE103F96064FD50
 export MUSICMETRIC_API_KEY=2a4277ac1ae94261aabce70284506e1f
 export SONGKICK_API_KEY=FEXq3znxXVczEfx7
 export FLICKR_API_KEY=094749539632747531e59de509dd8dc6
-export GOPATH="$HOME/dev/fp/lmn/creative_platform"
+export GOPATH="$HOME/dev/do/go"
 
 export PATH="$PATH:$GOPATH/bin"
 
@@ -144,22 +148,60 @@ gg_replace() {
         GLOBIGNORE=$ORIG_GLOBIGNORE
     fi
 }
+
 gg_dasherize() {
     gg_replace $1 `echo $1 | sed -e 's/_/-/g'` $2
+}
+
+docker_nuke() {
+    docker stop $(docker ps -a -q)
+    docker rm -f $(docker ps -a -q)
+    docker rmi -f $(docker images -q)
 }
 
 alias sprungepaste="pbpaste | sprunge | pbcopy"
 alias st='./script/test'
 alias sd='./script/dbshell'
 alias rl='bundle exec rubocop lib'
-export PATH=/Users/sam/Downloads/adt-bundle-mac-x86_64-20140624/sdk/platform-tools:/Users/sam/Downloads/adt-bundle-mac-x86_64-20140624/sdk/tools:/Applications/Postgres.app/Contents/Versions/9.3/bin:$HOME/bin:/usr/local/bin:/usr/local/share/npm/bin:$HOME/.sr/tools/bin:$HOME/.cabal/bin:$PATH
+export PATH=/Users/sam/Downloads/adt-bundle-mac-x86_64-20140624/sdk/platform-tools:/Users/sam/Downloads/adt-bundle-mac-x86_64-20140624/sdk/tools:/Applications/Postgres.app/Contents/Versions/latest/bin:$HOME/bin:/usr/local/bin:/usr/local/share/npm/bin:$HOME/.sr/tools/bin:$HOME/.cabal/bin:$PATH
 source /usr/local/share/chruby/chruby.sh
-chruby 2.2.3
+chruby 2.2.6
 export NODE_PATH=$(npm root -g)
 alias stripcolors="perl -pe 's/\e\[?.*?[\@-~]//g'"
-alias cspree='cd ~/dev/fp/lostmyname/spree/core'
-alias ceagle='cd ~/dev/fp/lostmyname/eagle'
-alias ckya='cd ~/dev/fp/getkya/getkya'
 alias dbundle='ruby -I ~/dev/bundler/lib ~/dev/bundler/exe/bundle'
 alias fig='docker-compose'
 export GO15VENDOREXPERIMENT=1
+
+projswitch() {
+    BASE=$2
+    if [ -z "$3" ]
+    then
+        clear
+        builtin cd $BASE && builtin cd $(find . -type d -maxdepth $1 | grep -v "\.git" | selecta)
+        cd .
+        clear
+        clear
+        ls
+    else
+        builtin cd $BASE/$3
+    fi
+}
+
+dop() {
+    projswitch 2 "$HOME/dev/do/" $1
+}
+
+ctp() {
+    cd ~/dev/do/cthulhu
+    source .env.sh
+    projswitch 5 "$HOME/dev/do/cthulhu" $1
+}
+
+p() {
+    projswitch 2 "$HOME/dev/" $1
+}
+
+eval "$(direnv hook bash)"
+alias prod_atlantis="ssh sphippen@prod-atlantis05.nyc2.internal.digitalocean.com"
+alias berc="bundle exec rubocop -a"
+export GOBIN=$HOME/dev/do/cthulhu/docode/bin
