@@ -159,7 +159,7 @@ map <leader>ovr      :tabe ~/.vimrc<CR>/map.*leader<CR>:noh<CR>
 map <leader>bi       :!bundle install<CR>
 map <leader>ft       zfat
 map <leader>uft      zR
-map <leader>gt       :!go test ./...<CR>
+map <leader>gt       :!go test -tags=integration ./...<CR>
 map <leader>gb       :GoBuild<CR>
 map <leader><space>  :noh<CR>
 imap <esc>           <esc>:w<CR>
