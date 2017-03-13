@@ -204,3 +204,4 @@ eval "$(direnv hook bash)"
 alias prod_atlantis="ssh sphippen@prod-atlantis05.nyc2.internal.digitalocean.com"
 alias berc="bundle exec rubocop -a"
 export GOBIN=$HOME/dev/do/cthulhu/docode/bin
+alias ca=$HOME/dev/do/cthulhu/script/analyze
