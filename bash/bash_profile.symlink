@@ -158,6 +158,11 @@ docker_nuke() {
     docker rmi -f $(docker images -q)
 }
 
+docker_stop() {
+    docker stop $(docker ps -a -q)
+    docker rm -f $(docker ps -a -q)
+}
+
 alias sprungepaste="pbpaste | sprunge | pbcopy"
 alias st='./script/test'
 alias sd='./script/dbshell'
