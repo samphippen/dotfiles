@@ -101,6 +101,7 @@ endfunction
 au FileType ruby call TwoSpace()
 au FileType coffee call TwoSpace()
 au FileType vim call TwoSpace()
+au FileType proto set noexpandtab
 au BufNewFile,BufRead *.erb call TwoSpace()
 au BufRead,BufNewFile *.go set filetype=go
 
