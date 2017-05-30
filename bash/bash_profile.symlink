@@ -211,6 +211,7 @@ alias berc="bundle exec rubocop -a"
 export GOBIN=$HOME/dev/do/cthulhu/docode/bin
 alias ca=$HOME/dev/do/cthulhu/script/analyze
 export DATABASE_READ_WRITE_HOST=127.0.0.1
+export DATABASE_ALPHA_READ_WRITE_HOST=127.0.0.1
 export ALPHA_DATABASE_RW_HOST=127.0.0.1
 export ALPHA_DATABASE_RO_HOST=127.0.0.1
 export BILLING_DATABASE_RW_HOST=127.0.0.1
