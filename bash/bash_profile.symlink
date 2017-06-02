@@ -169,7 +169,7 @@ alias sd='./script/dbshell'
 alias rl='bundle exec rubocop lib'
 export PATH=/Users/sam/Downloads/adt-bundle-mac-x86_64-20140624/sdk/platform-tools:/Users/sam/Downloads/adt-bundle-mac-x86_64-20140624/sdk/tools:/Applications/Postgres.app/Contents/Versions/latest/bin:$HOME/bin:/usr/local/bin:/usr/local/share/npm/bin:$HOME/.sr/tools/bin:$HOME/.cabal/bin:$PATH
 source /usr/local/share/chruby/chruby.sh
-chruby 2.4
+chruby 2.2.6
 export NODE_PATH=$(npm root -g)
 alias stripcolors="perl -pe 's/\e\[?.*?[\@-~]//g'"
 alias dbundle='ruby -I ~/dev/bundler/lib ~/dev/bundler/exe/bundle'
