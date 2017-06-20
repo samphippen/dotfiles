@@ -209,7 +209,7 @@ dop() {
 ctp() {
     cd ~/dev/do/cthulhu
     source .env.sh
-    projswitch 6 "$HOME/dev/do/cthulhu" $1
+    projswitch 7 "$HOME/dev/do/cthulhu" $1
 }
 
 p() {
