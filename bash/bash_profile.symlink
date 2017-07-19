@@ -229,3 +229,6 @@ export BILLING_DATABASE_RW_HOST=127.0.0.1
 export FINANCE_DATABASE_RW_HOST=127.0.0.1
 export DATABASE_HOST=127.0.0.1
 export PATH="/usr/local/opt/mysql@5.5/bin:$PATH"
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
