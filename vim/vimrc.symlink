@@ -125,7 +125,7 @@ map <leader>jma      :!ruby test/test_helper.rb <CR>
 map <leader>jmf      :!bundle exec ruby % <CR>
 map <leader>jta      :!./script/test<CR>
 map <leader>jmf      :!ruby %<CR>
-map <leader>rpf      :!python % <CR>
+map <leader>rpf      :!python3 % <CR>
 map <leader>rrf      :!bundle exec ruby %<CR>
 map <leader>rb       :!bash <CR>
 map <leader>rv       :so ~/.vimrc <CR>
