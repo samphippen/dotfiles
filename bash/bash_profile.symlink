@@ -49,17 +49,6 @@ dotfiles_dirty() {
 
 export PS1='$(dotfiles_dirty)$HOST$(parse_git_branch " [%s]  ")\$ '
 
-if [ $RAILS_ENV == "production" ]
-then
-    export PS1="$PS1 RAILS ENV IS PRODUCTION"
-fi
-
-if [ $RAILS_ENV == "staging" ]
-then
-    export PS1="$PS1 RAILS ENV IS STAGING"
-fi
-
-
 source ~/.git_completion
 
 export PATH=/usr/local/share/python:$HOME/.cargo/bin:$PATH
