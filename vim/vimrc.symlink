@@ -164,6 +164,8 @@ map <leader>ft       zfat
 map <leader>uft      zR
 map <leader>gt       :!go test -tags=integration -ldflags -s ./...<CR>
 map <leader>gb       :GoBuild<CR>
+map <leader>snp      :set nopaste<CR>
+map <leader>sp       :set paste<CR>
 map <leader><space>  :noh<CR>
 imap <esc>           <esc>:w<CR>
 
@@ -209,8 +211,6 @@ map <leader>n :call RenameFile()<cr>
 vmap <C-c><C-c> <Plug>SendSelectionToTmux
 nmap <C-c><C-c> <Plug>NormalModeSendToTmux
 nmap <C-c>r <Plug>SetTmuxVars
-
-colorscheme solarized
 
 set background=dark
 
