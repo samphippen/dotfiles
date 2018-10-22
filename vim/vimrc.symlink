@@ -18,6 +18,7 @@ Plugin 'vim-scripts/Conque-Shell'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'https://github.com/nono/vim-handlebars'
 Plugin 'tpope/vim-surround'
+Plugin 'elixir-editors/vim-elixir'
 Plugin 'tpope/vim-fugitive'
 Plugin 'takac/vim-hardtime'
 Plugin 'https://github.com/rust-lang/rust.vim'
@@ -239,3 +240,4 @@ if executable("rg")
 endif
 
 let g:ackprg = 'rg --vimgrep --no-heading'
+let g:ctrlp_custom_ignore = 'node_modules\|venv\|git'
