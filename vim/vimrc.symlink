@@ -240,4 +240,4 @@ if executable("rg")
 endif
 
 let g:ackprg = 'rg --vimgrep --no-heading'
-let g:ctrlp_custom_ignore = 'node_modules\|venv\|git'
+let g:ctrlp_custom_ignore = 'node_modules\|venv\|git\|deps\/\|priv\/\|_build\/'
