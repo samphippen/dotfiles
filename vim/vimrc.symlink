@@ -76,6 +76,8 @@ let g:ausession=".vimsession"
 "mother fucking makefiles
 autocmd FileType make setlocal noexpandtab
 autocmd FileType go setlocal noexpandtab
+autocmd BufNewFile,BufRead *.rbi set ft=ruby
+autocmd BufRead,BufNewFile *.rbi set syntax=ruby
 
 function! TwoSpace()
   setlocal ts=2
