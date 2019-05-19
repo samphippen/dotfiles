@@ -120,6 +120,7 @@ set listchars=tab:→\ ,trail:☃
 let g:rspec_command = "!bundle exec rspec {spec}"
 
 map <leader>jca      :!bundle exec cucumber --no-color<CR>
+map <leader>jsrb     :!bundle exec srb tc<CR>
 map <leader>jra      :call RunAllSpecs()<CR>
 map <leader>jrf      :call RunCurrentSpecFile()<CR>
 map <leader>jrn      :call RunNearestSpec()<CR>
