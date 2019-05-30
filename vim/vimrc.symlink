@@ -76,6 +76,8 @@ let g:ausession=".vimsession"
 "mother fucking makefiles
 autocmd FileType make setlocal noexpandtab
 autocmd FileType go setlocal noexpandtab
+autocmd BufNew,BufRead *.rbi set ft=ruby
+autocmd BufNew,BufRead *.rbi set syntax=ruby
 
 function! TwoSpace()
   setlocal ts=2
@@ -117,6 +119,7 @@ set listchars=tab:→\ ,trail:☃
 
 let g:rspec_command = "!bundle exec rspec {spec}"
 
+map <leader>srb      :!clear && bundle exec srb tc 2>&1 \| head -n 40<CR>
 map <leader>jca      :!bundle exec cucumber --no-color<CR>
 map <leader>jra      :call RunAllSpecs()<CR>
 map <leader>jrf      :call RunCurrentSpecFile()<CR>
@@ -161,7 +164,7 @@ map <leader>orf      :call OpenSpec()<CR>
 map <leader>orv      :call VsplitSpec()<CR>
 map <leader>onrv     :call VsplitSpec()<CR>irequire "spec_helper"<CR><ESC>
 map <leader>ors      :tabe .rspec<CR>
-map <leader>ogf      :tabe Gemfile<CR>
+map <leader>ogf      :vsp Gemfile<CR>
 map <leader>ovr      :tabe ~/.vimrc<CR>/map.*leader<CR>:noh<CR>
 map <leader>bi       :!bundle install<CR>
 map <leader>ft       zfat
