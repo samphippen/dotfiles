@@ -119,6 +119,7 @@ set listchars=tab:→\ ,trail:☃
 
 let g:rspec_command = "!bundle exec rspec {spec}"
 
+map <leader>srb      :!clear && bundle exec srb tc 2>&1 \| head -n 40<CR>
 map <leader>jca      :!bundle exec cucumber --no-color<CR>
 map <leader>jsrb     :!bundle exec srb tc<CR>
 map <leader>jra      :call RunAllSpecs()<CR>
@@ -131,13 +132,12 @@ map <leader>jnf      :!nosetests %<CR>
 map <leader>jma      :!ruby test/test_helper.rb <CR>
 map <leader>jmf      :!bundle exec ruby % <CR>
 map <leader>jta      :!./script/test<CR>
-map <leader>jmf      :!ruby %<CR>
 map <leader>rpf      :!python3 % <CR>
 map <leader>rrf      :!bundle exec ruby %<CR>
 map <leader>rb       :!bash <CR>
 map <leader>rv       :so ~/.vimrc <CR>
 map <leader>rm       :!touch % && make <CR>
-map <leader>rc       :!ctags -R<CR>
+map <leader>rc       :!ctags --exclude=build/ -R<CR>
 map <leader>cr      :!cargo run<CR>
 map <leader>cb      :!bash -c 'cargo build 2>&1 \| head -n 15'<CR>
 map <leader>ct      :!cargo test<CR>
@@ -164,7 +164,7 @@ map <leader>orf      :call OpenSpec()<CR>
 map <leader>orv      :call VsplitSpec()<CR>
 map <leader>onrv     :call VsplitSpec()<CR>irequire "spec_helper"<CR><ESC>
 map <leader>ors      :tabe .rspec<CR>
-map <leader>ogf      :tabe Gemfile<CR>
+map <leader>ogf      :vsp Gemfile<CR>
 map <leader>ovr      :tabe ~/.vimrc<CR>/map.*leader<CR>:noh<CR>
 map <leader>bi       :!bundle install<CR>
 map <leader>ft       zfat
@@ -173,6 +173,7 @@ map <leader>gt       :!go test -tags=integration -ldflags -s ./...<CR>
 map <leader>gb       :GoBuild<CR>
 map <leader>snp      :set nopaste<CR>
 map <leader>sp       :set paste<CR>
+map <leader>fr       :!clear && make build/rubyfmt.rb && bundle exec ruby build/rubyfmt.rb %<CR>
 map <leader><space>  :noh<CR>
 imap <esc>           <esc>:w<CR>
 
