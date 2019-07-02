@@ -76,8 +76,8 @@ let g:ausession=".vimsession"
 "mother fucking makefiles
 autocmd FileType make setlocal noexpandtab
 autocmd FileType go setlocal noexpandtab
-autocmd BufNew,BufRead *.rbi set ft=ruby
-autocmd BufNew,BufRead *.rbi set syntax=ruby
+autocmd BufNewFile,BufRead *.rbi set ft=ruby
+autocmd BufRead,BufNewFile *.rbi set syntax=ruby
 
 function! TwoSpace()
   setlocal ts=2
@@ -121,6 +121,7 @@ let g:rspec_command = "!bundle exec rspec {spec}"
 
 map <leader>srb      :!clear && bundle exec srb tc 2>&1 \| head -n 40<CR>
 map <leader>jca      :!bundle exec cucumber --no-color<CR>
+map <leader>jsrb     :!bundle exec srb tc<CR>
 map <leader>jra      :call RunAllSpecs()<CR>
 map <leader>jrf      :call RunCurrentSpecFile()<CR>
 map <leader>jrn      :call RunNearestSpec()<CR>
@@ -139,7 +140,7 @@ map <leader>rv       :so ~/.vimrc <CR>
 map <leader>rm       :!touch % && make <CR>
 map <leader>rc       :!ctags --exclude=build/ -R<CR>
 map <leader>cr      :!cargo run<CR>
-map <leader>cb      :!bash -c 'cargo build 2>&1 \| head -n 10'<CR>
+map <leader>cb      :!bash -c 'cargo build 2>&1 \| head -n 15'<CR>
 map <leader>ct      :!cargo test<CR>
 map <leader>eir      o<ESC>ogem "rspec-core", :github => "rspec/rspec-core"<CR>gem "rspec-expectations", :github => "rspec/rspec-expectations"<CR>gem "rspec-mocks", :github => "rspec/rspec-mocks"<CR>gem "rspec-support", :github => "rspec/rspec-support"<CR><ESC>
 map <leader>eipr     o<ESC>ogem "rspec-core", :path => "/Users/sam/dev/rspec/rspec-dev/repos/rspec-core"<CR>gem "rspec-expectations", :path => "/Users/sam/dev/rspec/rspec-dev/repos/rspec-expectations"<CR>gem "rspec-mocks", :path => "/Users/sam/dev/rspec/rspec-dev/repos/rspec-mocks"<CR>gem "rspec-support", :path => "/Users/sam/dev/rspec/rspec-dev/repos/rspec-support"<CR><ESC>
@@ -247,4 +248,4 @@ if executable("rg")
 endif
 
 let g:ackprg = 'rg --vimgrep --no-heading'
-let g:ctrlp_custom_ignore = 'node_modules\|venv\|git\|deps\/\|priv\/\|_build\/'
+let g:ctrlp_custom_ignore = 'node_modules\|venv\|git\|deps\/\|priv\/\|_build\/\|target'
