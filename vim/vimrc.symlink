@@ -61,7 +61,7 @@ set ruler
 set relativenumber
 set showmatch
 set showcmd
-set ignorecase
+set smartcase
 set ttyfast
 set lazyredraw
 set colorcolumn=80
