@@ -251,9 +251,9 @@ let g:ackprg = 'rg --vimgrep --no-heading'
 let g:ctrlp_custom_ignore = 'node_modules\|venv\|git\|deps\/\|priv\/\|_build\/\|target'
 
 function Rubyfmt()
-  echo "Calling rubyfmt"
   silent exec("!ruby --disable=gems ~/bin/rubyfmt.rb -i " . expand("%"))
   silent exec("edit " . expand("%"))
+  silent exec("redraw")
 endfunction
 
 au BufWritePost *.rb call Rubyfmt()
