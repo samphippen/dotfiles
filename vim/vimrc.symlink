@@ -32,6 +32,7 @@ Plugin 'rodjek/vim-puppet'
 Plugin 'https://github.com/fatih/vim-go'
 Plugin 'https://github.com/kchmck/vim-coffee-script.git'
 Plugin 'https://github.com/leafgarland/typescript-vim'
+Plugin 'ycm-core/YouCompleteMe'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -257,3 +258,4 @@ function Rubyfmt()
 endfunction
 
 au BufWritePost *.rb call Rubyfmt()
+let g:rustfmt_autosave = 1
