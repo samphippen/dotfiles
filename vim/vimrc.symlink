@@ -239,7 +239,7 @@ map <leader>y "*y
 " introduced in Vim 7.3.969). The Ruby syntax highlighting is significantly
 " slower with the new regex engine.
 set re=1
-let g:syntastic_mode_map = { 'passive_filetypes': ['python', 'css', 'scss', 'sass', 'haml'] }
+let g:syntastic_mode_map = { 'passive_filetypes': ['python', 'css', 'scss', 'sass', 'haml','rust'] }
 let g:ctrlp_max_files=0
 let g:go_fmt_command = "goimports"
 
@@ -258,4 +258,5 @@ function Rubyfmt()
 endfunction
 
 au BufWritePost *.rb call Rubyfmt()
-let g:rustfmt_autosave = 1
+set completeopt-=preview
+let g:rustfmt_autosave=1
