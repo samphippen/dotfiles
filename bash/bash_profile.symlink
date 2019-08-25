@@ -223,3 +223,4 @@ export DATABASE_HOST=127.0.0.1
   [ -s "/usr/local/opt/nvm/etc/bash_completion" ] && . "/usr/local/opt/nvm/etc/bash_completion"  # This loads nvm bash_completion
 export PATH="/usr/local/opt/mysql@5.6/bin:$PATH"
 nvm use 10
+alias rr="ruby -e \"require 'ripper'; require 'pp'; pp Ripper.sexp(ARGV[0])\""
