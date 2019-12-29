@@ -259,5 +259,3 @@ endfunction
 
 set completeopt-=preview
 let g:rustfmt_autosave=0
-
-inoremap <backspace> <nop>

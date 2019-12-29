@@ -5,8 +5,8 @@
 [hub]
         protocol = https
 [user]
-        name = Sam Phippen
-        email = samphippen@googlemail.com
+        name = Penelope Phippen
+        email = penelopedotzone@gmail.com
 [credential]
         helper = osxkeychain
 [alias]
@@ -41,5 +41,3 @@
         default = simple
 [branch]
         sort=-committerdate  # DESC
-[heroku]
-	account = samphippen@googlemail.com
