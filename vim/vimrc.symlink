@@ -222,7 +222,7 @@ vmap <C-c><C-c> <Plug>SendSelectionToTmux
 nmap <C-c><C-c> <Plug>NormalModeSendToTmux
 nmap <C-c>r <Plug>SetTmuxVars
 
-set background=light
+set background=dark
 
 map j gj
 map k gk
@@ -249,7 +249,7 @@ if executable("rg")
 endif
 
 let g:ackprg = 'rg --vimgrep --no-heading'
-let g:ctrlp_custom_ignore = 'node_modules\|venv\|git\|deps\/\|priv\/\|_build\/\|target'
+let g:ctrlp_custom_ignore = 'node_modules\|venv\|git\|deps\/\|priv\/\|_build\/\|target|tmp\/rspec-core'
 
 function Rubyfmt()
   silent exec("!ruby --disable=gems ~/bin/rubyfmt.rb -i " . expand("%"))

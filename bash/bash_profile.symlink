@@ -226,3 +226,10 @@ nvm use 10
 alias rr="ruby -e \"require 'ripper'; require 'pp'; pp Ripper.sexp(ARGV[0])\""
 
 export PATH="$HOME/.cargo/bin:$PATH"
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/penelope/Downloads/google-cloud-sdk/path.bash.inc' ]; then . '/Users/penelope/Downloads/google-cloud-sdk/path.bash.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/penelope/Downloads/google-cloud-sdk/completion.bash.inc' ]; then . '/Users/penelope/Downloads/google-cloud-sdk/completion.bash.inc'; fi
+export BASH_SILENCE_DEPRECATION_WARNING=1
