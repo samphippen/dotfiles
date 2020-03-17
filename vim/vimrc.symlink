@@ -129,8 +129,8 @@ map <leader>jrn      :call RunNearestSpec()<CR>
 map <leader>jrl      :call RunLastSpec()<CR>
 map <leader>jr!      :call RunLastFailure()<CR>
 map <leader>efz      :s/\([A-Z]\)/_\1/g<CR>\ f(r.lxx$xguu
-map <leader>jna      :!nosetests <CR>
-map <leader>jnf      :!nosetests %<CR>
+map <leader>jna      :!nose2 <CR>
+map <leader>jnf      :!nose2 %<CR>
 map <leader>jma      :!ruby test/test_helper.rb <CR>
 map <leader>jmf      :!bundle exec ruby % <CR>
 map <leader>jta      :!./script/test<CR>
