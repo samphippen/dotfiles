@@ -249,7 +249,8 @@ if executable("rg")
 endif
 
 let g:ackprg = 'rg --vimgrep --no-heading'
-let g:ctrlp_custom_ignore = 'node_modules\|venv\|git\|deps\/\|priv\/\|_build\/\|target|tmp\/rspec-core'
+let g:ctrlp_custom_ignore = 'node_modules\|venv\|git\\|deps\/\|priv\/\|_build\/\|target|tmp\/rspec-core'
+let g:ctrlp_dotfiles = 1
 
 function Rubyfmt()
   silent exec("!ruby --disable=gems ~/bin/rubyfmt.rb -i " . expand("%"))
