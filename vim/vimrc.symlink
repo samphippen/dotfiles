@@ -136,6 +136,7 @@ map <leader>jmf      :!bundle exec ruby % <CR>
 map <leader>jta      :!./script/test<CR>
 map <leader>rpf      :!python3 % <CR>
 map <leader>rrf      :!bundle exec ruby %<CR>
+map <leader>rf       :!./% <CR>
 map <leader>rb       :!bash <CR>
 map <leader>rv       :so ~/.vimrc <CR>
 map <leader>rm       :!touch % && make <CR>
