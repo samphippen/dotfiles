@@ -32,11 +32,27 @@ Plugin 'rodjek/vim-puppet'
 Plugin 'https://github.com/fatih/vim-go'
 Plugin 'https://github.com/kchmck/vim-coffee-script.git'
 Plugin 'https://github.com/leafgarland/typescript-vim'
-Plugin 'ycm-core/YouCompleteMe'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
+
+call plug#begin('~/.vim/plugged')
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+call plug#end()
+" Give more space for displaying messages.
+set cmdheight=2
+
+" Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
+" delays and poor user experience.
+set updatetime=300
+
+" Don't pass messages to |ins-completion-menu|.
+set shortmess+=c
+
+" Always show the signcolumn, otherwise it would shift the text each time
+" diagnostics appear/become resolved.
+set signcolumn=yes
 " To ignore plugin indent changes, instead use:
 "filetype plugin on
 "
@@ -240,7 +256,10 @@ map <leader>y "*y
 " introduced in Vim 7.3.969). The Ruby syntax highlighting is significantly
 " slower with the new regex engine.
 set re=1
-let g:syntastic_mode_map = { 'passive_filetypes': ['python', 'css', 'scss', 'sass', 'haml','rust'] }
+let g:syntastic_mode_map = {
+      \'mode': 'active',
+      \'passive_filetypes': ['python', 'css', 'scss', 'sass', 'haml','rust']
+      \}
 let g:ctrlp_max_files=0
 let g:go_fmt_command = "goimports"
 
@@ -259,5 +278,17 @@ function Rubyfmt()
   silent exec("redraw")
 endfunction
 
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
 set completeopt-=preview
 let g:rustfmt_autosave=0
+let g:syntastic_sh_checkers = ['shellcheck']
+let g:syntastic_bash_checkers = ['shellcheck']
+hi CocErrorSign ctermfg=black
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
