@@ -1,45 +1,21 @@
-set nocompatible " Required by vundle
+set nocompatible
 
-"set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
-
-" let Vundle manage Vundle, required
-Plugin 'gmarik/Vundle.vim'
-
-" The following are examples of different formats supported.
-" Keep Plugin commands between vundle#begin/end.
-" plugin on GitHub repo
-Plugin 'mileszs/ack.vim'
-Plugin 'kien/ctrlp.vim'
-Plugin 'vim-scripts/Conque-Shell'
-Plugin 'altercation/vim-colors-solarized'
-Plugin 'https://github.com/nono/vim-handlebars'
-Plugin 'tpope/vim-surround'
-Plugin 'elixir-editors/vim-elixir'
-Plugin 'tpope/vim-fugitive'
-Plugin 'takac/vim-hardtime'
-Plugin 'https://github.com/rust-lang/rust.vim'
-Plugin 'https://github.com/scrooloose/syntastic'
-Plugin 'tpope/vim-endwise'
-Plugin 'https://github.com/vim-scripts/REPL-plugin'
-Plugin 'Align'
-Plugin 'toyamarinyon/vim-swift'
-Plugin 'thoughtbot/vim-rspec'
-Plugin 'rodjek/vim-puppet'
-Plugin 'https://github.com/fatih/vim-go'
-Plugin 'https://github.com/kchmck/vim-coffee-script.git'
-Plugin 'https://github.com/leafgarland/typescript-vim'
-
+let $FZF_DEFAULT_COMMAND = 'fd --type f --hidden --follow --exclude .git --exclude native/target'
 " All of your Plugins must be added before the following line
-call vundle#end()            " required
-filetype plugin indent on    " required
-
 call plug#begin('~/.vim/plugged')
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'haya14busa/vim-stacktrace', { 'do': 'make' }
+Plug 'mileszs/ack.vim'
+Plug 'junegunn/fzf'
+Plug 'junegunn/fzf.vim'
+Plug 'tpope/vim-surround'
+Plug 'https://github.com/rust-lang/rust.vim'
+Plug 'https://github.com/scrooloose/syntastic'
+Plug 'tpope/vim-endwise'
+Plug 'https://github.com/fatih/vim-go'
 call plug#end()
+filetype plugin indent on    " required
+
 " Give more space for displaying messages.
 set cmdheight=2
 
@@ -53,17 +29,6 @@ set shortmess+=c
 " Always show the signcolumn, otherwise it would shift the text each time
 " diagnostics appear/become resolved.
 set signcolumn=yes
-" To ignore plugin indent changes, instead use:
-"filetype plugin on
-"
-" Brief help
-" :PluginList          - list configured plugins
-" :PluginInstall(!)    - install (update) plugins
-" :PluginSearch(!) foo - search (or refresh cache first) for foo
-" :PluginClean(!)      - confirm (or auto-approve) removal of unused plugins
-"
-" see :h vundle for more details or wiki for FAQ
-" Put your non-Plugin stuff after this line
 
 set      noswapfile
 syntax   on
@@ -272,12 +237,6 @@ let g:ackprg = 'rg --vimgrep --no-heading'
 let g:ctrlp_custom_ignore = 'node_modules\|venv\|git\\|deps\/\|priv\/\|_build\/\|target|tmp\/rspec-core'
 let g:ctrlp_dotfiles = 1
 
-function Rubyfmt()
-  silent exec("!ruby --disable=gems ~/bin/rubyfmt.rb -i " . expand("%"))
-  silent exec("edit " . expand("%"))
-  silent exec("redraw")
-endfunction
-
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
@@ -286,9 +245,12 @@ set completeopt-=preview
 let g:rustfmt_autosave=0
 let g:syntastic_sh_checkers = ['shellcheck']
 let g:syntastic_bash_checkers = ['shellcheck']
+let g:syntastic_check_on_open = 0
 hi CocErrorSign ctermfg=black
 nmap <silent> ]g <Plug>(coc-diagnostic-next)
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
+autocmd BufEnter * redraw!
+nmap <C-p> :Files<cr>
