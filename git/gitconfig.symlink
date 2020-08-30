@@ -6,7 +6,8 @@
         protocol = https
 [user]
         name = Penelope Phippen
-        email = penelopedotzone@gmail.com
+        email = penelope@hey.com
+	signingkey = E4ADE6186CC9669A
 [credential]
         helper = osxkeychain
 [alias]
@@ -41,3 +42,5 @@
         default = simple
 [branch]
         sort=-committerdate  # DESC
+[commit]
+	gpgsign = true
