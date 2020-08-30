@@ -1,6 +1,6 @@
 set nocompatible
 
-let $FZF_DEFAULT_COMMAND = 'fd --type f --hidden --follow --exclude .git --exclude native/target'
+let $FZF_DEFAULT_COMMAND = 'fd --type f --hidden --follow --exclude .git --exclude native/target --exclude librubyfmt/ruby_checkout'
 " All of your Plugins must be added before the following line
 call plug#begin('~/.vim/plugged')
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -43,7 +43,7 @@ set ruler
 set relativenumber
 set showmatch
 set showcmd
-set smartcase
+set ignorecase
 set ttyfast
 set lazyredraw
 set colorcolumn=80
@@ -228,12 +228,8 @@ let g:syntastic_mode_map = {
 let g:ctrlp_max_files=0
 let g:go_fmt_command = "goimports"
 
-if executable("rg")
-  set grepprg=rg\ --vimgrep\ --no-heading
-  set grepformat=%f:%l:%c:%m,%f:%l:%m
-endif
+let g:ackprg = 'rg --vimgrep --no-heading --ignore-file "$HOME/.rgignore"'
 
-let g:ackprg = 'rg --vimgrep --no-heading'
 let g:ctrlp_custom_ignore = 'node_modules\|venv\|git\\|deps\/\|priv\/\|_build\/\|target|tmp\/rspec-core'
 let g:ctrlp_dotfiles = 1
 
@@ -246,6 +242,7 @@ let g:rustfmt_autosave=0
 let g:syntastic_sh_checkers = ['shellcheck']
 let g:syntastic_bash_checkers = ['shellcheck']
 let g:syntastic_check_on_open = 0
+let g:syntastic_c_include_dirs=["./ruby_checkout/include", "./ruby_checkout/.ext/include/x86_64-darwin19/", "./ruby_checkout"]
 hi CocErrorSign ctermfg=black
 nmap <silent> ]g <Plug>(coc-diagnostic-next)
 nmap <silent> gd <Plug>(coc-definition)
@@ -254,3 +251,4 @@ nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 autocmd BufEnter * redraw!
 nmap <C-p> :Files<cr>
+nmap <leader>rn <Plug>(coc-rename)
