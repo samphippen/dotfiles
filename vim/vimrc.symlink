@@ -12,6 +12,7 @@ Plug 'tpope/vim-surround'
 Plug 'https://github.com/rust-lang/rust.vim'
 Plug 'https://github.com/scrooloose/syntastic'
 Plug 'tpope/vim-endwise'
+Plug 'https://github.com/thoughtbot/vim-rspec'
 Plug 'https://github.com/fatih/vim-go'
 call plug#end()
 filetype plugin indent on    " required
@@ -46,7 +47,6 @@ set showcmd
 set ignorecase
 set ttyfast
 set lazyredraw
-set colorcolumn=80
 set tabstop=4
 set shiftwidth=4
 set expandtab
@@ -211,8 +211,6 @@ map k gk
 
 autocmd FileType markdown set textwidth=80
 autocmd FileType markdown set spell
-autocmd FileType markdown set colorcolumn=81
-autocmd FileType markdown hi ColorColumn ctermbg=4
 autocmd FileType markdown set tabstop=2
 map <leader>y "*y
 
@@ -252,3 +250,4 @@ nmap <silent> gr <Plug>(coc-references)
 autocmd BufEnter * redraw!
 nmap <C-p> :Files<cr>
 nmap <leader>rn <Plug>(coc-rename)
+" source ~/dev/rubyfmt/rubyfmt.vim
