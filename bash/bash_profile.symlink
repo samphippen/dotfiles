@@ -229,4 +229,3 @@ if [ -f '/Users/penelope/Downloads/google-cloud-sdk/path.bash.inc' ]; then . '/U
 if [ -f '/Users/penelope/Downloads/google-cloud-sdk/completion.bash.inc' ]; then . '/Users/penelope/Downloads/google-cloud-sdk/completion.bash.inc'; fi
 export BASH_SILENCE_DEPRECATION_WARNING=1
 alias tf='make release && RUBYFMT_USE_RELEASE=1 ./script/tests/test_fixtures.sh'
-alias rubyfmt='ruby --disable=all ~/dev/rubyfmt/rubyfmt.rb'
