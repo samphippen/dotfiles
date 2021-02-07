@@ -3,6 +3,7 @@ set nocompatible
 let $FZF_DEFAULT_COMMAND = 'fd --type f --hidden --follow --exclude .git --exclude native/target --exclude librubyfmt/ruby_checkout'
 " All of your Plugins must be added before the following line
 call plug#begin('~/.vim/plugged')
+Plug 'git://github.com/gkz/vim-ls.git'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'haya14busa/vim-stacktrace', { 'do': 'make' }
 Plug 'mileszs/ack.vim'
@@ -160,7 +161,6 @@ map <leader>snp      :set nopaste<CR>
 map <leader>sp       :set paste<CR>
 map <leader>fr       :!clear && make build/rubyfmt.rb && bundle exec ruby build/rubyfmt.rb %<CR>
 map <leader><space>  :noh<CR>
-imap <esc>           <esc>:w<CR>
 
 nnoremap <leader>h <Esc>:call ToggleHardMode()<CR>
 
@@ -252,3 +252,4 @@ autocmd BufEnter * redraw!
 nmap <C-p> :Files<cr>
 nmap <leader>rn <Plug>(coc-rename)
 " source ~/dev/rubyfmt/rubyfmt.vim
+let g:fzf_layout = { 'down': '~60%' }
